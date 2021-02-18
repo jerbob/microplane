@@ -32,7 +32,7 @@ func Clone(ctx context.Context, input Input) (Output, error) {
 		return Output{Success: true, ClonedIntoDir: cloneIntoDir}, nil
 	}
 
-	cmd := exec.CommandContext(ctx, "git", "clone", input.GitURL, cloneIntoDir)
+	cmd := exec.CommandContext(ctx, "git", "clone", "--single-branch", "--branch", "develop", input.GitURL, cloneIntoDir)
 	cmd.Dir = input.WorkDir
 	if output, err := cmd.CombinedOutput(); err != nil {
 		return Output{Success: false}, Error{error: err, Details: string(output)}
