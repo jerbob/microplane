@@ -105,11 +105,7 @@ func GithubPush(ctx context.Context, input Input, repoLimiter *time.Ticker, push
 
 	// Open a pull request, if one doesn't exist already
 	head := fmt.Sprintf("%s:%s", input.RepoOwner, input.BranchName)
-	repository, _, err := client.Repositories.Get(ctx, input.RepoOwner, input.RepoName)
-	if err != nil {
-		return Output{Success: false}, err
-	}
-	base := *repository.DefaultBranch
+    base := "develop"
 
 	// Determine PR title and body
 	// Title is first line of commit message.
